@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <appender name="CLOUD" class="com.google.cloud.logging.logback.LoggingAppender">
+        <!-- Optional : filter logs at or above a level -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+
+        <enhancer>me.christ9979.stackdriverapp.ExampleEnhancer</enhancer>
+        <!--Stackdriver에서 분류될 로그 종류-->
+        <log>application.log</log> <!-- Optional : default java.log -->
+
+        <!-- 로그를 전송하는 배치가 바로 flush할 기준 -->
+        <flushLevel>ERROR</flushLevel> <!-- Optional : default ERROR -->
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CLOUD" />
+    </root>
+</configuration>
